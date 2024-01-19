@@ -1,0 +1,137 @@
+# Microsoft Developer Studio Generated Dependency File, included by Runtime.mak
+
+.\auxrut.c : \
+	"..\..\inc\csflat.h"\
+	"..\..\inc\dataseg.h"\
+	"..\..\inc\drvrcrt.h"\
+	"..\..\inc\ssiport.h"\
+	"..\..\inc\vlcport.h"\
+	"..\..\intime\inc\_align.h"\
+	"..\..\intime\inc\_noalign.h"\
+	"..\..\intime\inc\_restore.h"\
+	"..\..\intime\inc\reent.h"\
+	"..\..\intime\inc\rt.h"\
+	"..\..\intime\inc\rtbase.h"\
+	"..\..\intime\inc\rtdef.h"\
+	"..\..\intime\inc\rtdsm.h"\
+	"..\..\intime\inc\rterr.h"\
+	"..\..\intime\inc\rtext.h"\
+	"..\..\intime\inc\rttypes.h"\
+	"..\..\intime\inc\rtwin32.h"\
+	"..\INC\Driver.h"\
+	".\auxrut.h"\
+	".\STDAFX.H"\
+	
+
+.\Card.c : \
+	"..\..\inc\csflat.h"\
+	"..\..\inc\dataseg.h"\
+	"..\..\inc\dcflat.h"\
+	"..\..\inc\drvrcrt.h"\
+	"..\..\inc\ssiport.h"\
+	"..\..\inc\vlcport.h"\
+	"..\..\intime\inc\_align.h"\
+	"..\..\intime\inc\_noalign.h"\
+	"..\..\intime\inc\_restore.h"\
+	"..\..\intime\inc\reent.h"\
+	"..\..\intime\inc\rt.h"\
+	"..\..\intime\inc\rtbase.h"\
+	"..\..\intime\inc\rtdef.h"\
+	"..\..\intime\inc\rtdsm.h"\
+	"..\..\intime\inc\rterr.h"\
+	"..\..\intime\inc\rtext.h"\
+	"..\..\intime\inc\rttypes.h"\
+	"..\..\intime\inc\rtwin32.h"\
+	"..\INC\Driver.h"\
+	".\auxrut.h"\
+	".\Card.h"\
+	".\Pci3tier.h"\
+	".\STDAFX.H"\
+	
+
+.\Pci3tier.c : \
+	"..\..\inc\csflat.h"\
+	"..\..\inc\dataseg.h"\
+	"..\..\inc\dcflat.h"\
+	"..\..\inc\drvrcrt.h"\
+	"..\..\inc\globcom.h"\
+	"..\..\inc\ssiport.h"\
+	"..\..\inc\vlcport.h"\
+	"..\..\intime\inc\_align.h"\
+	"..\..\intime\inc\_noalign.h"\
+	"..\..\intime\inc\_restore.h"\
+	"..\..\intime\inc\reent.h"\
+	"..\..\intime\inc\rt.h"\
+	"..\..\intime\inc\rtbase.h"\
+	"..\..\intime\inc\rtdef.h"\
+	"..\..\intime\inc\rtdsm.h"\
+	"..\..\intime\inc\rterr.h"\
+	"..\..\intime\inc\rtext.h"\
+	"..\..\intime\inc\rttypes.h"\
+	"..\..\intime\inc\rtwin32.h"\
+	"..\INC\Driver.h"\
+	".\auxrut.h"\
+	".\Card.h"\
+	".\Pci3tier.h"\
+	".\PciStuff.h"\
+	".\STDAFX.H"\
+	".\task.h"\
+	
+
+.\PCISTUFF.C : \
+	"..\..\inc\csflat.h"\
+	"..\..\inc\dataseg.h"\
+	"..\..\inc\dcflat.h"\
+	"..\..\inc\drvrcrt.h"\
+	"..\..\inc\ssiport.h"\
+	"..\..\inc\vlcport.h"\
+	"..\..\intime\inc\_align.h"\
+	"..\..\intime\inc\_noalign.h"\
+	"..\..\intime\inc\_restore.h"\
+	"..\..\intime\inc\reent.h"\
+	"..\..\intime\inc\rt.h"\
+	"..\..\intime\inc\rtbase.h"\
+	"..\..\intime\inc\rtdef.h"\
+	"..\..\intime\inc\rtdsm.h"\
+	"..\..\intime\inc\rterr.h"\
+	"..\..\intime\inc\rtext.h"\
+	"..\..\intime\inc\rttypes.h"\
+	"..\..\intime\inc\rtwin32.h"\
+	"..\INC\Driver.h"\
+	".\auxrut.h"\
+	".\PciStuff.h"\
+	".\STDAFX.H"\
+	
+
+.\task.c : \
+	"..\..\inc\csflat.h"\
+	"..\..\inc\dataseg.h"\
+	"..\..\inc\dcflat.h"\
+	"..\..\inc\drvrcrt.h"\
+	"..\..\inc\ssiport.h"\
+	"..\..\inc\vlcport.h"\
+	"..\..\intime\inc\_align.h"\
+	"..\..\intime\inc\_noalign.h"\
+	"..\..\intime\inc\_restore.h"\
+	"..\..\intime\inc\reent.h"\
+	"..\..\intime\inc\rt.h"\
+	"..\..\intime\inc\rtbase.h"\
+	"..\..\intime\inc\rtdef.h"\
+	"..\..\intime\inc\rtdsm.h"\
+	"..\..\intime\inc\rterr.h"\
+	"..\..\intime\inc\rtext.h"\
+	"..\..\intime\inc\rttypes.h"\
+	"..\..\intime\inc\rtwin32.h"\
+	"..\INC\Driver.h"\
+	".\auxrut.h"\
+	".\Card.h"\
+	".\STDAFX.H"\
+	".\task.h"\
+	
+
+.\VERSION.RC : \
+	"..\..\inc\globcom.h"\
+	"..\..\inc\verbldll.rc2"\
+	"..\..\inc\verblock.rc2"\
+	"..\INC\Version.h"\
+	

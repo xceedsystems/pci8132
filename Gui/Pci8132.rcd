@@ -1,0 +1,1572 @@
+/* 
+    pci8132.rcd
+
+This file is the master record / sample file for drivers.
+see drvrid.h for layout details.
+*/
+
+#ifdef APSTUDIO_INVOKED
+    #error this file is not editable by App Studio
+#endif //APSTUDIO_INVOKED
+
+
+
+#define  THIS_DRIVER    1               // driver rcd index 
+
+
+
+// Do not modify this paragraph.
+DRIVER_DLL_ID DRIVER_DLL_TYPE LOADONCALL DISCARDABLE
+BEGIN
+    DRVINST_CONTRACT,
+    DRIVER_VERSION,
+    "\270\245\311\222\324\225\355\374",
+    1,
+    NETWORK_TYPE, THIS_DRIVER,
+    DRIVER_SENTINEL,
+    0x30FFDD2BL,
+END
+
+
+
+
+////////////////////////////  Driver descriptor  /////////////////////////
+
+
+THIS_DRIVER NETWORK_TYPE LOADONCALL DISCARDABLE     // paragraph #2     driver associated!
+BEGIN
+    DriverPCI8132,                     // DrvCookie
+    PCI8132VERS,                       // Driver Uiot Version 
+    MAX_DRV_INSTANCES,                  // max # of instances  
+    "AdLink PCI 8132\0",                       // Driver name 
+    "The Adlink Motion PCI-8132 driver for "
+    "the Visual Logic Controller"
+    " (" PRODUCT_VERSION ").\r\n"
+    "ID: 0x5e7f8d49 , by ahkait@pacific.net.sg \0",                               // Driver Description 
+
+    0,
+    // DRVTAG_STOP_STATE, 2, NET_STOPSTATE, DRIVER_SENTINEL, //Use this DRVTAG to control all outputs state when stopping the project (0 or hold last).
+    DRVTAG_DONE,
+    0L, 0L, 0L,                     // Expansion 
+    4,                              // Count of device names 
+    0,                              // NeedsBuffer - <> 0 if requires extra buffer area for async transfers 
+    NET_FUNC_TYPE,     // p.#3      // RT_USER FuncType - Resource type for network/device functions, 0 if none 
+    THIS_DRIVER,                    // RR_USER FuncRef - Ref to list of network function head, 0 if none 
+  
+    NET_CFG_TYPE,      // p.#4      // RT_USER CfgType - Resource type for network/device cfg 
+    IDD_NETWORK,                    // RR_USER CfgRef - Ref to structure def of network config data, 0 if none 
+
+    0,                              // RT_USER ErrorsType - Resource type for errors codes the driver can return 
+    DEVICE_TYPE, DEVICE_CARD_POS,              
+    DEVICE_TYPE, DEVICE_CARD_IO_STATUS1,              
+    DEVICE_TYPE, DEVICE_CARD_INT_STATUS1,            
+   	DEVICE_TYPE, DEVICE_1W_IANDO,             
+    DRIVER_SENTINEL        
+END
+
+    
+
+
+IDD_NETWORK NET_CFG_TYPE LOADONCALL DISCARDABLE        // paragraph #4        Configure dlg_box  associated!
+BEGIN
+    IDD_NETWORK,                    //DLG_ID - Id of dialog for this function, 0 if use default dialog
+    0,                              // CTRL_ID - DescId of the Description area
+    IDC_PB_HELP,                    //HELP_ID - CtrlId of the Help button
+    IDH_NETWORK+LONG_PAD,           // HELP_IDX - Help index into driver help file for this config ctrl
+    0L, 0L, 0L, 0L                  // Expansion 
+    NETCONFIG_SIZE,                 // UINT16 TotalSize - Number of bytes in config block
+    6,                             // UINT16 CfgCount  - Number of inline control entries in IDD_NETWORK dlgbox
+    DRIVER_SENTINEL    
+
+    //  1 - UINT32  DriverId, Offset NET_ID, Size NET_ID_SIZE 
+    "Driver Id\0",
+    "Driver Id\0",
+    0L, 0L, 0L, 0L,                 // Expansion 
+    0,                              // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+    NET_ID,                         // UINT16 Offset in data block where value is
+    0,                              // UINT16 m_Bit - Bit offset in byte indexed by offset
+    NET_ID_SIZE,                    // UINT16 m_Bits - Number of bits wide the value is
+    CT_CONST,                       // CFG_TYPES m_CfgType
+    // Variable depending on CFG_TYPES
+    NETCONFIG_ID,                   // UINT32 const value
+    DRIVER_SENTINEL        
+
+    //  2 - UINT32  DriverVers, Offset NET_VERS, Size NET_VERS_SIZE 
+    "Driver Vers\0",
+    "Driver Vers\0",
+    0L, 0L, 0L, 0L,                 // Expansion 
+    0,                              // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+    NET_VERS,                       // UINT16 Offset in data block where value is
+    0,                              // UINT16 m_Bit - Bit offset in byte indexed by offset
+    NET_VERS_SIZE,                  // UINT16 m_Bits - Number of bits wide the value is
+    CT_CONST,                       // CFG_TYPES m_CfgType
+    //Variable depending on CFG_TYPES
+    NETCONFIG_VERS,                 // UINT32 const value
+    DRIVER_SENTINEL        
+
+    //  3 - UINT16 bSimulate; Offset NET_SIMULATE, Size NET_SIMULATE_SIZE 
+    "Simulate driver\0",
+    "If checked, the priject runs in simulate mode regardless the hardware. "
+    "If clear, the LOAD command will fail on hardware issues.\0",
+    0L, 0L, 0L, 0L,                 // Expansion 
+    IDC_CB_SIMULATE,                // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+    NET_SIMULATE,                   // UINT16 Offset in data block where value is
+    0,                              // UINT16 m_Bit - Bit offset in byte indexed by offset
+    NET_SIMULATE_SIZE,              // UINT16 m_Bits - Number of bits wide the value is
+    CT_CHECK,                       // CFG_TYPES m_CfgType
+    //Variable depending on CFG_TYPES
+    0L,                             // UINT32 m_Default
+    0L,                             // UINT32 m_Off
+    1L,                             // UINT32 m_On
+    DRIVER_SENTINEL        
+
+    //  4 - NUMCHANNELS;   Offset NET_NUMCHANNELS, Size NET_NUMCHANNELS_SIZE  
+    "Number of channels\0",
+    "\0",
+    0L, 0L, 0L, 0L,                 // Expansion 
+    IDC_RB_8_CHANNELS,           // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+    NET_NUMCHANNELS,                  // WORD MemoryBase - Offset in data block where value is
+    0,                              // WORD m_Bit - Bit offset in byte indexed by offset
+    NET_NUMCHANNELS_SIZE,             // WORD m_Bits - Number of bits wide the value is
+    CT_RADIO,                       // CFG_TYPES m_CfgType
+    //Variable depending on CFG_TYPES
+    IDC_RB_16_CHANNELS,             // UINT16 last RB's id       
+    SS_HOLD_LAST_STATE+LONG_PAD,    // UINT32 m_Default   // Add 0L to ensure UINT32
+    NET_CFGLIST_TYPE, IDC_RB_8_CHANNELS,         // p.#6
+    DRIVER_SENTINEL        
+
+    //  5
+    "PCI Board Index\0",
+    "\0",
+    LONG_PAD,                           // Future feature expansion
+    LONG_PAD,                           // Future feature expansion
+    LONG_PAD,                           // Future feature expansion
+    LONG_PAD,                           // Future feature expansion
+    IDC_CO_PCI_INDEX,                   // Control ID
+    HELP_IDX_NONE,                      // Help file index
+    NET_PCI_INDEX,                      // Offset to data byte
+    0,                                  // Bit offset in data byte
+    NET_PCI_INDEX_SIZE,                 // Bitfield width of data
+    //
+    // The remainder of the structure is based on the device
+    // configuration type (CT_STRLIST):
+    //
+    CT_STRLIST,                         // Configuration control type
+    1L,                                 // Default selection
+    NET_CFGLIST_TYPE, IDC_CO_PCI_INDEX,
+    DRIVER_SENTENIAL,
+
+    //  6
+    "PCI Board Count\0",
+    "\0",
+    LONG_PAD,                           // Future feature expansion
+    LONG_PAD,                           // Future feature expansion
+    LONG_PAD,                           // Future feature expansion
+    LONG_PAD,                           // Future feature expansion
+    IDC_CO_PCI_COUNT,                   // Control ID
+    HELP_IDX_NONE,                      // Help file index
+    NET_PCI_COUNT,                      // Offset to data byte
+    0,                                  // Bit offset in data byte
+    NET_PCI_COUNT_SIZE,                 // Bitfield width of data
+    //
+    // The remainder of the structure is based on the device
+    // configuration type (CT_STRLIST):
+    //
+    CT_STRLIST,                         // Configuration control type
+    0L,                                 // Default selection
+    NET_CFGLIST_TYPE, IDC_CO_PCI_COUNT,
+    DRIVER_SENTENIAL,
+
+
+DRIVER_SENTINEL
+END
+
+
+//
+//
+//
+IDC_CO_PCI_INDEX NET_CFGLIST_TYPE LOADONCALL DISCARDABLE
+BEGIN
+    4,
+    
+    1L,     "PCI Motion Card 0\0",
+    2L,     "PCI Motion Card 1\0",
+    3L,     "PCI Motion Card 2\0",
+    4L,     "PCI Motion Card 3\0",
+
+DRIVER_SENTENIAL
+END
+
+
+//
+//
+//
+IDC_CO_PCI_COUNT NET_CFGLIST_TYPE LOADONCALL DISCARDABLE
+BEGIN
+    5,
+
+    0L,     "Any # of cards\0"  // UINT32, string
+    1L,     "1 PCI card\0",
+    2L,     "2 PCI cards\0",
+    3L,     "3 PCI cards\0",
+    4L,     "4 PCI cards\0",
+ 
+DRIVER_SENTENIAL
+END
+
+
+
+
+IDC_RB_8_CHANNELS NET_CFGLIST_TYPE LOADONCALL DISCARDABLE       // paragraph #6
+BEGIN
+    2,
+    8+LONG_PAD, "\0"     // Add 0L to ensure UINT32
+    16+LONG_PAD, "\0"
+    DRIVER_SENTINEL        
+END
+
+
+/////////////////////////////////// Driver functions ////////////////////////////
+
+
+THIS_DRIVER NET_FUNC_TYPE LOADONCALL DISCARDABLE       // paragraph #3
+BEGIN
+    4,                              // how many functions are described 
+
+   DRVF_MOTION+LONG_PAD,                 // UINT32  Function id, Add 0L to ensure UINT32
+        "Motion Commands\0",                       // short name 
+        "Direct the cards to move"
+        "\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDD_DRVF_MOTION,                  // DlgId     
+        IDC_PB_HELP,                    // HelpId    
+        0+LONG_PAD, //IDH_DRVF_COLLECT+LONG_PAD,			// HelpIdx   
+        FNC_SPECIAL_INST_SIZE,          // TotalSize 
+        NET_PARAM_TYPE, DRVF_MOTION,      // p.#8      
+    DRIVER_SENTINEL
+
+	DRVF_SETGET+LONG_PAD,                 // UINT32  Function id, Add 0L to ensure UINT32
+        "GET/SET Motion Commands\0",                       // short name 
+        "Set/Get Values"
+        "\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDD_DRVF_SETGET,                  // DlgId     
+        IDC_PB_HELP,                    // HelpId    
+        0+LONG_PAD, //IDH_DRVF_COLLECT+LONG_PAD,			// HelpIdx   
+        FNC_SPECIAL_INST_SIZE,          // TotalSize 
+        NET_PARAM_TYPE, DRVF_SETGET,      // p.#8      
+    DRIVER_SENTINEL
+
+
+
+	DRVF_OTHERS+LONG_PAD,                 // UINT32  Function id, Add 0L to ensure UINT32
+        "Other Settings and Status\0",                       // short name 
+        "Other Settings and Status"
+        "\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDD_DRVF_OTHERS,                  // DlgId     
+        IDC_PB_HELP,                    // HelpId    
+        0+LONG_PAD, //IDH_DRVF_COLLECT+LONG_PAD,			// HelpIdx   
+        FNC_SPECIAL_INST_SIZE,          // TotalSize 
+        NET_PARAM_TYPE, DRVF_OTHERS,      // p.#8      
+    DRIVER_SENTINEL
+
+	DRVF_ONFLY+LONG_PAD,                 // UINT32  Function id, Add 0L to ensure UINT32
+        "On the Fly Setting\0",                       // short name 
+        "On the Fly Setting"
+        "\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDD_DRVF_ONFLY,                  // DlgId     
+        IDC_PB_HELP,                    // HelpId    
+        0+LONG_PAD, //IDH_DRVF_COLLECT+LONG_PAD,			// HelpIdx   
+        FNC_SPECIAL_INST_SIZE,          // TotalSize 
+        NET_PARAM_TYPE, DRVF_ONFLY, // DRVF_SETGET      // p.#8      
+    DRIVER_SENTINEL
+
+
+
+
+DRIVER_SENTINEL        
+END
+
+
+
+DRVF_MOTION NET_PARAM_TYPE LOADONCALL DISCARDABLE          // paragraph #8
+BEGIN                                   
+    16,                                  // how many parameters does this function has 
+
+    //  1 - UINT16   FunctionId;   Offset FNC_HD_FUNCTIONID, Size FNC_HD_FUNCTIONID_SIZE 
+        "\0",                           // short name 
+        "\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        0,                              // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_FUNCTIONID,              // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_FUNCTIONID_SIZE,         // DWORD Size - Number of bytes in config block for this param value 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_CONST,
+        DRVF_MOTION+LONG_PAD,             // function's id. Add 0L to ensure UINT32
+    DRIVER_SENTINEL
+
+    //  2 - UIOTREF2UINT16  ofsResult;   Offset FNC_HD_RESULT, Size FNC_HD_RESULT_SIZE 
+        "Result code\0",                // short name 
+        "Result code\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        IDC_E_RESULT,                   // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_RESULT,                  // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_RESULT_SIZE,             // DWORD Size - size of the parameter pointed to by the reference 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_REF,
+    DRIVER_SENTINEL
+
+    //  3 - UIOTREF2UINT16  ofsResult;   Offset FNC_HD_RESULT, Size FNC_HD_RESULT_SIZE 
+        "Status code\0",                // short name 
+        "Status code\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        IDC_E_STATUS,                   // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_STATUS,                  // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_STATUS_SIZE,             // DWORD Size - size of the parameter pointed to by the reference 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_REF,
+    DRIVER_SENTINEL
+
+        
+    //  4 - UINT16 WLength;   Offset FNC_CM_WLENGTH, Size FNC_CM_WLENGTH_SIZE 
+        "# Axis\0",        // short name 
+        "# Axis\0",
+        0L, 0L, 0L, 0L,                // Expansion 
+        IDC_C_AXIS_NO,                 // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                 // HELP_IDX m_HelpIdx
+        FNC_CM_AXIS_NO,                // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_AXIS_NO_SIZE,             // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_VALUE_LIST,                         // CFG_TYPES m_CfgType
+		0L,                               // UINT32 m_Default
+		0L,                               // UINT32 m_Min
+		1L+LONG_PAD,           // UINT32 m_Max
+		1L,                               // UINT32 m_Step
+		"%ld\0"                             // CString m_Text/Fmt
+	DRIVER_SENTINEL   
+    
+    //  5 - 
+        "FUNCTION SELECT\0",                // short name 
+        "Function Selection\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_C_AXIS_FUNCTION,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_FUN_SEL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_FUN_SEL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_STRING_LIST,
+        0+LONG_PAD,			// CHANGE DEFAULT
+        NET_CFGLIST_TYPE, 
+		LIST_FUNCTION1,  
+		DRIVER_SENTENIAL
+
+    
+    //  6 - 
+        "Final Position\0",                // short name 
+        "Final Position\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_POS,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_FINAL_POS,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_FINAL_POS_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_FLOATVALUE,
+		
+
+    DRIVER_SENTINEL
+    
+    //  7 - 
+        "START VEL\0",                // short name 
+        "START VEL\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_ST_VEL,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_ST_VEL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_ST_VEL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_FLOATVALUE,
+		DRIVER_SENTINEL
+    
+    //  8 - 
+        "MAX VEL\0",                // short name 
+        "MAX VEL\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_MAX_VEL,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_MAX_VEL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_MAX_VEL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        PT_FLOATVALUE,
+		// ParamTypes (WORD) Type - How the data is to be processed 
+    DRIVER_SENTINEL
+    
+    //  9 - 
+        "ACCL\0",                // short name 
+        "ACCL\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_ACCL,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_ACCL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_ACCL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_FLOATVALUE,
+    DRIVER_SENTINEL
+ 
+ //  10 - 
+        "DECCL\0",                // short name 
+        "DECCL\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_DECCL,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_DECCL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_DECCL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+		PT_FLOATVALUE,
+    DRIVER_SENTINEL
+    
+    //  11 - 
+        "TACCL\0",                // short name 
+        "TACCL\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_TACCL,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_TACCL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_TACCL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_FLOATVALUE,
+    DRIVER_SENTINEL
+    
+    //  12 - 
+        "TDECCL\0",                // short name 
+        "TDECCL\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_TDECCL,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_TDECCL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_TDECCL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_FLOATVALUE,
+    DRIVER_SENTINEL
+    
+ 
+
+ //  13 - 
+        "T1ACCL\0",                // short name 
+        "T1ACCL\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_T1ACCL,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_T1ACCL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_T1ACCL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        PT_FLOATVALUE,
+    DRIVER_SENTINEL
+        
+    
+ //  14 - 
+        "T1DECCL\0",                // short name 
+        "T1DECCL\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_T1DECCL,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_T1DECCL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_T1DECCL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        PT_FLOATVALUE,
+    DRIVER_SENTINEL
+
+ //  15 - 
+        "TSACCL\0",                // short name 
+        "TSACCL\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_TSACCL,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_TSACCL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_TSACCL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        PT_FLOATVALUE,
+    DRIVER_SENTINEL
+        
+    
+ //  16 - 
+        "TSDECCL\0",                // short name 
+        "TSDECCL\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_TSDECCL,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_TSDECCL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_TSDECCL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        PT_FLOATVALUE,
+    DRIVER_SENTINEL
+   
+   
+ 
+DRIVER_SENTINEL        
+END
+
+
+
+DRVF_SETGET NET_PARAM_TYPE LOADONCALL DISCARDABLE          // paragraph #8
+BEGIN                                   
+    7,                                  // how many parameters does this function has 
+
+    //  1 - UINT16   FunctionId;   Offset FNC_HD_FUNCTIONID, Size FNC_HD_FUNCTIONID_SIZE 
+        "\0",                           // short name 
+        "\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        0,                              // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_FUNCTIONID,              // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_FUNCTIONID_SIZE,         // DWORD Size - Number of bytes in config block for this param value 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_CONST,
+        DRVF_SETGET+LONG_PAD,             // function's id. Add 0L to ensure UINT32
+    DRIVER_SENTINEL
+
+    //  2 - UIOTREF2UINT16  ofsResult;   Offset FNC_HD_RESULT, Size FNC_HD_RESULT_SIZE 
+        "Result code\0",                // short name 
+        "Result code\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        IDC_E_RESULT,                   // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_RESULT,                  // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_RESULT_SIZE,             // DWORD Size - size of the parameter pointed to by the reference 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_REF,
+    DRIVER_SENTINEL
+
+    //  3 - UIOTREF2UINT16  ofsResult;   Offset FNC_HD_RESULT, Size FNC_HD_RESULT_SIZE 
+        "Status code\0",                // short name 
+        "Status code\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        IDC_E_STATUS,                   // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_STATUS,                  // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_STATUS_SIZE,             // DWORD Size - size of the parameter pointed to by the reference 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_REF,
+    DRIVER_SENTINEL
+
+        
+    //  4 - UINT16 WLength;   Offset FNC_CM_WLENGTH, Size FNC_CM_WLENGTH_SIZE 
+        "# Axis\0",        // short name 
+        "# Axis\0",
+        0L, 0L, 0L, 0L,                // Expansion 
+        IDC_C_AXIS_NO,                 // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                 // HELP_IDX m_HelpIdx
+        FNC_CM_AXIS_NO,                // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_AXIS_NO_SIZE,             // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_VALUE_LIST,                         // CFG_TYPES m_CfgType
+		0L,                               // UINT32 m_Default
+		0L,                               // UINT32 m_Min
+		1L+LONG_PAD,           // UINT32 m_Max
+		1L,                               // UINT32 m_Step
+		"%ld\0"                             // CString m_Text/Fmt
+	DRIVER_SENTINEL   
+    
+    //  5 - 
+        "FUNCTION SELECT\0",                // short name 
+        "Function Selection\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_C_AXIS_FUNCTION,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_FUN_SEL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_FUN_SEL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_STRING_LIST,
+        0+LONG_PAD,			// CHANGE DEFAULT
+        NET_CFGLIST_TYPE, 
+		LIST_FUNCTION2,  
+		DRIVER_SENTENIAL
+
+    
+    //  6 - 
+        "Set Value\0",                // short name 
+        "Set Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_SET,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_SET,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_SET_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_FLOATVALUE,
+		
+    DRIVER_SENTINEL
+    
+    //  7 - 
+        "Get Value\0",                // short name 
+        "Get Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_GET,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_CM_GET,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_CM_GET_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_FLOATREF,
+		DRIVER_SENTINEL
+    
+
+  
+ 
+DRIVER_SENTINEL        
+END
+
+
+
+
+DRVF_OTHERS NET_PARAM_TYPE LOADONCALL DISCARDABLE          // paragraph #8
+BEGIN                                   
+    10,                                  // how many parameters does this function has 
+
+    //  1 - UINT16   FunctionId;   Offset FNC_HD_FUNCTIONID, Size FNC_HD_FUNCTIONID_SIZE 
+        "\0",                           // short name 
+        "\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        0,                              // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_FUNCTIONID,              // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_FUNCTIONID_SIZE,         // DWORD Size - Number of bytes in config block for this param value 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_CONST,
+        DRVF_OTHERS+LONG_PAD,             // function's id. Add 0L to ensure UINT32
+    DRIVER_SENTINEL
+
+    //  2 - UIOTREF2UINT16  ofsResult;   Offset FNC_HD_RESULT, Size FNC_HD_RESULT_SIZE 
+        "Result code\0",                // short name 
+        "Result code\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        IDC_E_RESULT,                   // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_RESULT,                  // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_RESULT_SIZE,             // DWORD Size - size of the parameter pointed to by the reference 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_REF,
+    DRIVER_SENTINEL
+
+    //  3 - UIOTREF2UINT16  ofsResult;   Offset FNC_HD_RESULT, Size FNC_HD_RESULT_SIZE 
+        "Status code\0",                // short name 
+        "Status code\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        IDC_E_STATUS,                   // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_STATUS,                  // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_STATUS_SIZE,             // DWORD Size - size of the parameter pointed to by the reference 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_REF,
+    DRIVER_SENTINEL
+
+        
+    //  4 - UINT16 WLength;   Offset FNC_CM_WLENGTH, Size FNC_CM_WLENGTH_SIZE 
+        "# Axis\0",        // short name 
+        "# Axis\0",
+        0L, 0L, 0L, 0L,                // Expansion 
+        IDC_C_AXIS_NO,                 // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                 // HELP_IDX m_HelpIdx
+        FNC_OT_AXIS_NO,                // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_AXIS_NO_SIZE,             // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_VALUE_LIST,                         // CFG_TYPES m_CfgType
+		0L,                               // UINT32 m_Default
+		0L,                               // UINT32 m_Min
+		1L+LONG_PAD,           // UINT32 m_Max
+		1L,                               // UINT32 m_Step
+		"%ld\0"                             // CString m_Text/Fmt
+	DRIVER_SENTINEL   
+    
+    //  5 - 
+        "FUNCTION SELECT\0",                // short name 
+        "Function Selection\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_C_AXIS_FUNCTION,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_FUN_SEL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_FUN_SEL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_STRING_LIST,
+        0+LONG_PAD,			// CHANGE DEFAULT
+        NET_CFGLIST_TYPE, 
+		LIST_FUNCTION3,  
+		DRIVER_SENTENIAL
+
+    
+    //  6 - 
+        "Get Value\0",                // short name 
+        "Get Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_GETU16,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_GET,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_GET_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_SREF,
+		
+    DRIVER_SENTINEL
+    
+    //  7 - 
+        "Set Value1\0",                // short name 
+        "Set Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_SETU16_1,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_SET1,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_SET_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_SVALUE,
+		0L,                           // UINT32 m_Default
+        0x80000000L,                  // UINT32 m_Min
+        0x7FFFFFFFL,                  // UINT32 m_Max
+        1L,                           // UINT32 m_Step
+		
+		DRIVER_SENTINEL
+    
+    //  8 - 
+        "Set Value2\0",                // short name 
+        "Set Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_SETU16_2,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_SET2,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_SET_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_SVALUE,
+		0L,                           // UINT32 m_Default
+        0x80000000L,                  // UINT32 m_Min
+        0x7FFFFFFFL,                  // UINT32 m_Max
+        1L,                           // UINT32 m_Step
+		DRIVER_SENTINEL
+
+
+    //  9 - 
+        "Set Value3\0",                // short name 
+        "Set Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_SETU16_3,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_SET3,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_SET_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_SVALUE,
+		0L,                           // UINT32 m_Default
+        0x80000000L,                  // UINT32 m_Min
+        0x7FFFFFFFL,                  // UINT32 m_Max
+        1L,                           // UINT32 m_Step
+		DRIVER_SENTINEL
+
+    //  10 - 
+        "Set Value4\0",                // short name 
+        "Set Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_SETU16_4,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_SET4,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_SET_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_SVALUE,
+		0L,                           // UINT32 m_Default
+        0x80000000L,                  // UINT32 m_Min
+        0x7FFFFFFFL,                  // UINT32 m_Max
+        1L,                           // UINT32 m_Step
+		
+		DRIVER_SENTINEL
+ 
+ 
+DRIVER_SENTINEL        
+END
+
+
+
+///
+
+
+
+DRVF_ONFLY NET_PARAM_TYPE LOADONCALL DISCARDABLE          // paragraph #8
+BEGIN                                   
+    10,                                  // how many parameters does this function has 
+
+    //  1 - UINT16   FunctionId;   Offset FNC_HD_FUNCTIONID, Size FNC_HD_FUNCTIONID_SIZE 
+        "\0",                           // short name 
+        "\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        0,                              // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_FUNCTIONID,              // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_FUNCTIONID_SIZE,         // DWORD Size - Number of bytes in config block for this param value 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_CONST,
+        DRVF_ONFLY+LONG_PAD,             // function's id. Add 0L to ensure UINT32
+    DRIVER_SENTINEL
+
+    //  2 - UIOTREF2UINT16  ofsResult;   Offset FNC_HD_RESULT, Size FNC_HD_RESULT_SIZE 
+        "Result code\0",                // short name 
+        "Result code\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        IDC_E_RESULT,                   // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_RESULT,                  // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_RESULT_SIZE,             // DWORD Size - size of the parameter pointed to by the reference 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_REF,
+    DRIVER_SENTINEL
+
+    //  3 - UIOTREF2UINT16  ofsResult;   Offset FNC_HD_RESULT, Size FNC_HD_RESULT_SIZE 
+        "Status code\0",                // short name 
+        "Status code\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+        IDC_E_STATUS,                   // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE                   // HELP_IDX m_HelpIdx
+        FNC_HD_STATUS,                  // DWORD Offset - Offset in config block for this param value 
+        FNC_HD_STATUS_SIZE,             // DWORD Size - size of the parameter pointed to by the reference 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_REF,
+    DRIVER_SENTINEL
+
+        
+    //  4 - UINT16 WLength;   Offset FNC_CM_WLENGTH, Size FNC_CM_WLENGTH_SIZE 
+        "# Axis\0",        // short name 
+        "# Axis\0",
+        0L, 0L, 0L, 0L,                // Expansion 
+        IDC_C_AXIS_NO,                 // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                 // HELP_IDX m_HelpIdx
+        FNC_OT_AXIS_NO,                // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_AXIS_NO_SIZE,             // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_VALUE_LIST,                         // CFG_TYPES m_CfgType
+		0L,                               // UINT32 m_Default
+		0L,                               // UINT32 m_Min
+		1L+LONG_PAD,           // UINT32 m_Max
+		1L,                               // UINT32 m_Step
+		"%ld\0"                             // CString m_Text/Fmt
+	DRIVER_SENTINEL   
+    
+    //  5 - 
+        "FUNCTION SELECT\0",                // short name 
+        "Function Selection\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_C_AXIS_FUNCTION,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_FUN_SEL,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_FUN_SEL_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+        PT_STRING_LIST,
+        0+LONG_PAD,			// CHANGE DEFAULT
+        NET_CFGLIST_TYPE, 
+		LIST_FUNCTION4,  
+		DRIVER_SENTENIAL
+
+    
+    //  6 - 
+        "Get Value\0",                // short name 
+        "Get Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_GETU16,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_GET,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_GET_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_SREF,
+		
+    DRIVER_SENTINEL
+    
+    //  7 - 
+        "Set Value1\0",                // short name 
+        "Set Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_SETU16_1,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_SET1,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_SET_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_SVALUE,
+		0L,                           // UINT32 m_Default
+        0x80000000L,                  // UINT32 m_Min
+        0x7FFFFFFFL,                  // UINT32 m_Max
+        1L,                           // UINT32 m_Step
+		
+		DRIVER_SENTINEL
+    
+    //  8 - 
+        "Set Value2\0",                // short name 
+        "Set Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_SETU16_2,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_SET2,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_SET_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_SVALUE,
+		0L,                           // UINT32 m_Default
+        0x80000000L,                  // UINT32 m_Min
+        0x7FFFFFFFL,                  // UINT32 m_Max
+        1L,                           // UINT32 m_Step
+		DRIVER_SENTINEL
+
+
+    //  9 - 
+        "Set Value3\0",                // short name 
+        "Set Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_SETU16_3,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_SET3,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_SET_SIZE,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_SVALUE,
+		0L,                           // UINT32 m_Default
+        0x80000000L,                  // UINT32 m_Min
+        0x7FFFFFFFL,                  // UINT32 m_Max
+        1L,                           // UINT32 m_Step
+		DRIVER_SENTINEL
+
+    //  10 - 
+        "Set Value4\0",                // short name 
+        "Set Value\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+        IDC_E_SETI32_4,                  // CTRL_ID CtrlId_type - Id of control in dll dialog for this param value or type if using default dlg 
+        HELP_IDX_NONE,                  // HELP_IDX m_HelpIdx
+        FNC_OT_SET5,                 // DWORD Offset - Offset in config block for this param value 
+        FNC_OT_SET_SIZE5,            // DWORD Size - PT_BUFFER --> 8L 
+        // ParamTypes (WORD) Type - How the data is to be processed 
+		PT_BUFFER,
+		//0L,                           // UINT32 m_Default
+        //0x80000000L,                  // UINT32 m_Min
+        //0x7FFFFFFFL,                  // UINT32 m_Max
+        //1L,                           // UINT32 m_Step
+		
+		DRIVER_SENTINEL
+ 
+ 
+DRIVER_SENTINEL        
+END
+
+
+
+///
+////////////////////   device configuration block (here same for all devices)   //////////////////
+
+IDD_DEVICE_POS DEV_CFG_TYPE LOADONCALL DISCARDABLE      // paragraph #4    device confif dlg box  associated!
+BEGIN
+    IDD_DEVICE,                         // DLG_ID - Id of dialog for this function, 0 if use default dialog
+    5,                                  // CTRL_ID - DescId of the Description area
+    IDC_PB_HELP,                        // HELP_ID - CtrlId of the Help button
+    IDH_DEVICE+LONG_PAD,                // HELP_IDX m_HelpIdx
+    0L, 0L, 0L, 0L                      // Expansion 
+    DEVCONFIG_SIZE,                     // UINT16 TotalSize - Number of bytes in config block
+    4,                                  // UINT16 CfgCount - Number of inline entries
+    DRIVER_SENTINEL
+    
+    //  1 - UINT32  DriverId, Offset DEV_DRVID, Size DEV_DRVID_SIZE 
+    "DriverId\0",
+    "DriverId\0",
+    0L, 0L, 0L, 0L                      // Expansion 
+    0,                                  // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE                       // HELP_IDX m_HelpIdx
+    DEV_DRVID,                          // UINT16 - Offset in DEVICONFIG where value is
+    0,                                  // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_DRVID_SIZE,                     // UINT16 m_Bits - Number of bits wide the value is
+    CT_CONST,                           // CFG_TYPES m_CfgType
+    //Variable depending on CFG_TYPES
+    NETCONFIG_ID,                       // UINT32 const value
+    DRIVER_SENTINEL        
+    
+    //  2 - UINT32  DeviceId, Offset DEV_ID, Size DEV_ID_SIZE 
+    "DeviceId\0",
+    "DeviceId\0",
+    0L, 0L, 0L, 0L                      // Expansion 
+    0,                                  // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE                       // HELP_IDX m_HelpIdx
+    DEV_ID,                             // UINT16 - Offset in DEVICONFIG where value is
+    0,                                  // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_ID_SIZE,                        // UINT16 m_Bits - Number of bits wide the value is
+    CT_CONST,                           // CFG_TYPES m_CfgType
+    //Variable depending on CFG_TYPES
+    DEVCONFIG_ID,                       // UINT32 const value
+    DRIVER_SENTINEL        
+    
+    //  3 - UINT32  DeviceVers, Offset DEV_VERS, Size DEV_VERS_SIZE 
+    "DeviceVers\0",
+    "DeviceVers\0",
+    0L, 0L, 0L, 0L,                     // Expansion 
+    0,                                  // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE,                      // HELP_IDX m_HelpIdx
+    DEV_VERS,                           // UINT16 - Offset in DEVICONFIG where value is
+    0                                   // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_VERS_SIZE,                      // UINT16 m_Bits - Number of bits wide the value is
+    CT_CONST,                           // CFG_TYPES m_CfgType
+    DEVCONFIG_VERS,                     // UINT32 const value
+    DRIVER_SENTINEL        
+    
+    
+    //  4 - UINT16 Address, Offset DEV_ADDRESS, Size DEV_ADDRESS_SIZE 
+    "Axis Channel\0",
+    "Axis number under this card\0",
+    0L, 0L, 0L, 0L,                     // Expansion 
+    IDC_CO_ADDRESS,                     // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE,                      // HELP_IDX m_HelpIdx
+    DEV_ADDRESS,                        // UINT16 - Offset in DEVICONFIG where value is
+    0,                                  // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_ADDRESS_SIZE,                   // UINT16 m_Bits - Number of bits wide the value is
+    	CT_STRLIST,                         // Configuration control type
+    0L,                                 // Default selection
+    NET_CFGLIST_TYPE, IDC_CO_POS,                           // CString m_Text/Fmt
+    DRIVER_SENTINEL        
+              
+  
+DRIVER_SENTINEL
+END
+
+
+
+IDD_DEVICE_IO DEV_CFG_TYPE LOADONCALL DISCARDABLE      // paragraph #4    device confif dlg box  associated!
+BEGIN
+    IDD_DEVICE,                         // DLG_ID - Id of dialog for this function, 0 if use default dialog
+    0,                                  // CTRL_ID - DescId of the Description area
+    IDC_PB_HELP,                        // HELP_ID - CtrlId of the Help button
+    IDH_DEVICE+LONG_PAD,                // HELP_IDX m_HelpIdx
+    0L, 0L, 0L, 0L                      // Expansion 
+    DEVCONFIG_SIZE,                     // UINT16 TotalSize - Number of bytes in config block
+    4,                                  // UINT16 CfgCount - Number of inline entries
+    DRIVER_SENTINEL
+    
+    //  1 - UINT32  DriverId, Offset DEV_DRVID, Size DEV_DRVID_SIZE 
+    "DriverId\0",
+    "DriverId\0",
+    0L, 0L, 0L, 0L                      // Expansion 
+    0,                                  // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE                       // HELP_IDX m_HelpIdx
+    DEV_DRVID,                          // UINT16 - Offset in DEVICONFIG where value is
+    0,                                  // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_DRVID_SIZE,                     // UINT16 m_Bits - Number of bits wide the value is
+    CT_CONST,                           // CFG_TYPES m_CfgType
+    //Variable depending on CFG_TYPES
+    NETCONFIG_ID,                       // UINT32 const value
+    DRIVER_SENTINEL        
+    
+    //  2 - UINT32  DeviceId, Offset DEV_ID, Size DEV_ID_SIZE 
+    "DeviceId\0",
+    "DeviceId\0",
+    0L, 0L, 0L, 0L                      // Expansion 
+    0,                                  // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE                       // HELP_IDX m_HelpIdx
+    DEV_ID,                             // UINT16 - Offset in DEVICONFIG where value is
+    0,                                  // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_ID_SIZE,                        // UINT16 m_Bits - Number of bits wide the value is
+    CT_CONST,                           // CFG_TYPES m_CfgType
+    //Variable depending on CFG_TYPES
+    DEVCONFIG_ID,                       // UINT32 const value
+    DRIVER_SENTINEL        
+    
+    //  3 - UINT32  DeviceVers, Offset DEV_VERS, Size DEV_VERS_SIZE 
+    "DeviceVers\0",
+    "DeviceVers\0",
+    0L, 0L, 0L, 0L,                     // Expansion 
+    0,                                  // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE,                      // HELP_IDX m_HelpIdx
+    DEV_VERS,                           // UINT16 - Offset in DEVICONFIG where value is
+    0                                   // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_VERS_SIZE,                      // UINT16 m_Bits - Number of bits wide the value is
+    CT_CONST,                           // CFG_TYPES m_CfgType
+    //Variable depending on CFG_TYPES
+    DEVCONFIG_VERS,                     // UINT32 const value
+    DRIVER_SENTINEL        
+    
+    
+    //  4 - UINT16 Address, Offset DEV_ADDRESS, Size DEV_ADDRESS_SIZE 
+    "Axis Channel\0",
+    "Axis number under this card\0",
+    0L, 0L, 0L, 0L,                     // Expansion 
+    IDC_CO_ADDRESS,                     // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE,                      // HELP_IDX m_HelpIdx
+    DEV_ADDRESS,                        // UINT16 - Offset in DEVICONFIG where value is
+    0,                                  // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_ADDRESS_SIZE,                   // UINT16 m_Bits - Number of bits wide the value is
+    CT_STRLIST,                         // Configuration control type
+    0L,                                 // Default selection
+    NET_CFGLIST_TYPE, IDC_CO_IO,                       // CString m_Text/Fmt
+    DRIVER_SENTINEL        
+           
+  
+DRIVER_SENTINEL
+END
+
+
+IDD_DEVICE_INT DEV_CFG_TYPE LOADONCALL DISCARDABLE      // paragraph #4    device confif dlg box  associated!
+BEGIN
+    IDD_DEVICE,                         // DLG_ID - Id of dialog for this function, 0 if use default dialog
+    0,                                  // CTRL_ID - DescId of the Description area
+    IDC_PB_HELP,                        // HELP_ID - CtrlId of the Help button
+    IDH_DEVICE+LONG_PAD,                // HELP_IDX m_HelpIdx
+    0L, 0L, 0L, 0L                      // Expansion 
+    DEVCONFIG_SIZE,                     // UINT16 TotalSize - Number of bytes in config block
+    4,                                  // UINT16 CfgCount - Number of inline entries
+    DRIVER_SENTINEL
+    
+    //  1 - UINT32  DriverId, Offset DEV_DRVID, Size DEV_DRVID_SIZE 
+    "DriverId\0",
+    "DriverId\0",
+    0L, 0L, 0L, 0L                      // Expansion 
+    0,                                  // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE                       // HELP_IDX m_HelpIdx
+    DEV_DRVID,                          // UINT16 - Offset in DEVICONFIG where value is
+    0,                                  // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_DRVID_SIZE,                     // UINT16 m_Bits - Number of bits wide the value is
+    CT_CONST,                           // CFG_TYPES m_CfgType
+    //Variable depending on CFG_TYPES
+    NETCONFIG_ID,                       // UINT32 const value
+    DRIVER_SENTINEL        
+    
+    //  2 - UINT32  DeviceId, Offset DEV_ID, Size DEV_ID_SIZE 
+    "DeviceId\0",
+    "DeviceId\0",
+    0L, 0L, 0L, 0L                      // Expansion 
+    0,                                  // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE                       // HELP_IDX m_HelpIdx
+    DEV_ID,                             // UINT16 - Offset in DEVICONFIG where value is
+    0,                                  // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_ID_SIZE,                        // UINT16 m_Bits - Number of bits wide the value is
+    CT_CONST,                           // CFG_TYPES m_CfgType
+    //Variable depending on CFG_TYPES
+    DEVCONFIG_ID,                       // UINT32 const value
+    DRIVER_SENTINEL        
+    
+    //  3 - UINT32  DeviceVers, Offset DEV_VERS, Size DEV_VERS_SIZE 
+    "DeviceVers\0",
+    "DeviceVers\0",
+    0L, 0L, 0L, 0L,                     // Expansion 
+    0,                                  // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE,                      // HELP_IDX m_HelpIdx
+    DEV_VERS,                           // UINT16 - Offset in DEVICONFIG where value is
+    0                                   // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_VERS_SIZE,                      // UINT16 m_Bits - Number of bits wide the value is
+    CT_CONST,                           // CFG_TYPES m_CfgType
+    //Variable depending on CFG_TYPES
+    DEVCONFIG_VERS,                     // UINT32 const value
+    DRIVER_SENTINEL        
+    
+    
+    //  4 - UINT16 Address, Offset DEV_ADDRESS, Size DEV_ADDRESS_SIZE 
+    "Axis Channel\0",
+    "Axis number under this card\0",
+    0L, 0L, 0L, 0L,                     // Expansion 
+    IDC_CO_ADDRESS,                     // CTRL_ID m_CtrlId - 
+    HELP_IDX_NONE,                      // HELP_IDX m_HelpIdx
+    DEV_ADDRESS,                        // UINT16 - Offset in DEVICONFIG where value is
+    0,                                  // UINT16 m_Bit - Bit offset in byte indexed by offset
+    DEV_ADDRESS_SIZE,                   // UINT16 m_Bits - Number of bits wide the value is
+	CT_STRLIST,                         // Configuration control type
+    0L,                                 // Default selection
+    NET_CFGLIST_TYPE, IDC_CO_INT,
+    
+    DRIVER_SENTINEL        
+   
+  
+DRIVER_SENTINEL
+END
+
+
+IDC_CO_POS NET_CFGLIST_TYPE LOADONCALL DISCARDABLE
+BEGIN
+    2,
+    
+    0L,     "Axis 0 POS\0",
+    1L,     "Axis 1 POS\0",
+    
+DRIVER_SENTENIAL
+END
+
+
+IDC_CO_IO NET_CFGLIST_TYPE LOADONCALL DISCARDABLE
+BEGIN
+    3,
+    
+    0L,     "Axis 0 IO\0",
+    1L,     "Axis 1 IO\0",
+    3L,     "DIGITAL I/O IO\0",
+    
+DRIVER_SENTENIAL
+END
+
+
+
+IDC_CO_INT NET_CFGLIST_TYPE LOADONCALL DISCARDABLE
+BEGIN
+    2,
+    
+    0L,     "Axis 0 INT\0",
+    1L,     "Axis 1 INT\0",
+    
+DRIVER_SENTENIAL
+END
+
+
+
+////////////////////////////////   device descriptors   ///////////////////////////////////
+
+DEVICE_CARD_POS DEVICE_TYPE LOADONCALL DISCARDABLE        // paragraph #5      device type associated!
+BEGIN
+    // Device Cookie, Dev Prog, In, Out 
+    DEVICE_CARD_POS+LONG_PAD            // Add 0L to ensure UINT32
+        0L, 0L, 0L,                     // Ana Prog, In, Out 
+        0L, 0L, 0L,                     // Total count of points 
+        0,                              // Not used
+        // Name 
+        "Postion Read out of Axis\0",
+        // Description 
+        "Axis readout.\r\n",
+        "for any axis\r\n", 
+        "\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+
+        DEV_FUNC_TYPE,      // p.#3     // RT_USER FuncType - Resource type for network/device functions, 0 if none 
+        0,                    // RR_USER FuncRef - Ref to list of network function head, 0 if none 
+  
+        DEV_CFG_TYPE,       // p.#4     // RT_USER CfgType - Resource type for device config, 0 if none 
+        IDD_DEVICE_POS,                     // RR_USER CfgRef - Ref to structure def of device config data, 0 if none 
+
+        DEV_PNT_TYPE,       // p.#7     // RT_USER PntType - Resource type for point info, 0 if none 
+        DEVICE_CARD_POS,                // RR_USER PntRef - Ref to structure def of point data 
+    DRIVER_SENTINEL        
+END         
+
+DEVICE_CARD_POS DEV_PNT_TYPE LOADONCALL DISCARDABLE        // paragraph #7
+BEGIN
+    //  Bits (short), Value (UINT32), Text 
+
+    1,
+
+    32, SA_INPUT,   0,  "Axis Position\0"
+//	32, SA_INPUT,   32, "Axis Position IO\0"
+
+DRIVER_SENTINEL        
+END
+
+DEVICE_CARD_IO_STATUS1 DEVICE_TYPE LOADONCALL DISCARDABLE        // paragraph #5      device type associated!
+BEGIN
+    // Device Cookie, Dev Prog, In, Out 
+    DEVICE_CARD_IO_STATUS1+LONG_PAD            // Add 0L to ensure UINT32
+        0L, 0L, 0L,                     // Ana Prog, In, Out 
+        0L, 0L, 0L,                     // Total count of points 
+        0,                              // Not used
+        // Name 
+        "IO Status of motion card\0",
+        // Description 
+        "Axis status.\r\n",
+        "of card\r\n", 
+        "\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+
+        DEV_FUNC_TYPE,      // p.#3     // RT_USER FuncType - Resource type for network/device functions, 0 if none 
+        0,                    // RR_USER FuncRef - Ref to list of network function head, 0 if none 
+  
+        DEV_CFG_TYPE,       // p.#4     // RT_USER CfgType - Resource type for device config, 0 if none 
+        IDD_DEVICE_IO,                     // RR_USER CfgRef - Ref to structure def of device config data, 0 if none 
+
+        DEV_PNT_TYPE,       // p.#7     // RT_USER PntType - Resource type for point info, 0 if none 
+        DEVICE_CARD_IO_STATUS0,                // RR_USER PntRef - Ref to structure def of point data 
+    DRIVER_SENTINEL        
+END         
+
+
+
+
+DEVICE_CARD_IO_STATUS0 DEV_PNT_TYPE LOADONCALL DISCARDABLE        // paragraph #7
+BEGIN
+    //  Bits (short), Value (UINT32), Text 
+
+    2+16,
+
+    16, SA_INPUT,   0,  "0 - IO Status Word\0"
+    16, SA_INPUT,   16, "1 - Motion Status\0"
+
+    1, SA_INPUT,   0,  "  0 - Positive Limit Switch +EL\0"
+    1, SA_INPUT,   1,  "  1 - Negative Limit Switch -EL\0"
+    1, SA_INPUT,   2,  "  2 - Positive Slow Down Point +SD\0"
+    1, SA_INPUT,   3,  "  3 - Negative Slow Down Point -SD\0"
+    1, SA_INPUT,   4,  "  4 - Orgin Switch ORG\0"
+    1, SA_INPUT,   5,  "  5 - Index Signal EZ\0"
+    1, SA_INPUT,   6,  "  6 - Alarm Signal ALM\0"
+    1, SA_INPUT,   7,  "  7 - SVON of PCL5023 pin output\0"
+    1, SA_INPUT,   8,  "  8 - Ready  RDY\0"
+    1, SA_INPUT,   9,  "  9 - Interrupt Status INT\0"
+    1, SA_INPUT,  10,  " 10 - ERC pin output\0"
+    1, SA_INPUT,  11,  " 11 - Inposition signal input INP\0"
+    1, SA_INPUT,  12,  " 12 - reserved \0"
+    1, SA_INPUT,  13,  " 13 - reserved \0"
+    1, SA_INPUT,  14,  " 14 - reserved \0"
+    1, SA_INPUT,  15,  " 15 - reserved \0"
+
+DRIVER_SENTINEL        
+END
+
+DEVICE_CARD_INT_STATUS1 DEVICE_TYPE LOADONCALL DISCARDABLE        // paragraph #5      device type associated!
+BEGIN
+    // Device Cookie, Dev Prog, In, Out 
+    DEVICE_CARD_INT_STATUS1+LONG_PAD            // Add 0L to ensure UINT32
+        0L, 0L, 0L,                     // Ana Prog, In, Out 
+        0L, 0L, 0L,                     // Total count of points 
+        0,                              // Not used
+        // Name 
+        "INT Status\0",
+        // Description 
+        "Axis INT status.\r\n",
+        "of each axis\r\n", 
+        "\0",
+        0L, 0L, 0L, 0L,                 // Expansion 
+
+        DEV_FUNC_TYPE,      // p.#3     // RT_USER FuncType - Resource type for network/device functions, 0 if none 
+        0,                    // RR_USER FuncRef - Ref to list of network function head, 0 if none 
+  
+        DEV_CFG_TYPE,       // p.#4     // RT_USER CfgType - Resource type for device config, 0 if none 
+        IDD_DEVICE_INT,                     // RR_USER CfgRef - Ref to structure def of device config data, 0 if none 
+
+        DEV_PNT_TYPE,       // p.#7     // RT_USER PntType - Resource type for point info, 0 if none 
+        DEVICE_CARD_INT_STATUS0,                // RR_USER PntRef - Ref to structure def of point data 
+    DRIVER_SENTINEL        
+END         
+
+DEVICE_CARD_INT_STATUS0 DEV_PNT_TYPE LOADONCALL DISCARDABLE        // paragraph #7
+BEGIN
+    //  Bits (short), Value (UINT32), Text 
+
+    1+32,
+
+    32, SA_INPUT,   0,  "0 - INT Status 32 bit\0"
+    1, SA_INPUT,   0,  "  0 - Stop with Limit +EL signal\0"
+    1, SA_INPUT,   1,  "  1 - Stop with Limit -EL signal\0"
+    1, SA_INPUT,   2,  "  2 - Stop with Slow Down +SD signal\0"
+    1, SA_INPUT,   3,  "  3 - Stop with Slow Down -SD signal\0"
+    1, SA_INPUT,   4,  "  4 - Stop with Alarm ALM signal\0"
+    1, SA_INPUT,   5,  "  5 - Stop with STOP STP signal\0"
+    1, SA_INPUT,   6,  "  6 - reserved\0"
+    1, SA_INPUT,   7,  "  7 - reserved\0"
+    1, SA_INPUT,   8,  "  8 - Stop with vstop() command\0"
+    1, SA_INPUT,   9,  "  9 - Stop with home return completed\0"
+    1, SA_INPUT,  10,  " 10 - reserved\0"
+    1, SA_INPUT,  11,  " 11 - Stop with preset movement completed\0"
+    1, SA_INPUT,  12,  " 12 - Stop with EA/EB input error\0"
+    1, SA_INPUT,  13,  " 13 - reserved\0"
+    1, SA_INPUT,  14,  " 14 - Stop with PA/PB input error\0"
+    1, SA_INPUT,  15,  " 15 - Start with STA signal\0"
+
+	1, SA_INPUT,   16, " 16 - Deceleration Completed\0"
+    1, SA_INPUT,   17,  " 17 - Acceleraation Starting\0"
+    1, SA_INPUT,   18,  " 18 - reserved\0"
+    1, SA_INPUT,   19,  " 19 - reserved\0"
+    1, SA_INPUT,   20,  " 20 - reserved\0"
+    1, SA_INPUT,   21,  " 21 - reserved\0"
+    1, SA_INPUT,   22,  " 22 - reserved\0"
+    1, SA_INPUT,   23,  " 23 - RDY Active\0"
+    1, SA_INPUT,   24,  " 24 - reserved\0"
+    1, SA_INPUT,   25,  " 25 - reserved\0"
+    1, SA_INPUT,  26,  " 26 - reserved\0"
+    1, SA_INPUT,  27,  " 27 - reserved\0"
+    1, SA_INPUT,  28,  " 28 - reserved\0"
+    1, SA_INPUT,  29,  " 29 - reserved\0"
+    1, SA_INPUT,  30,  " 30 - reserved\0"
+    1, SA_INPUT,  31,  " 31 - reserved\0"
+
+DRIVER_SENTINEL        
+END
+
+
+
+DEVICE_1W_IANDO DEVICE_TYPE LOADONCALL DISCARDABLE        // paragraph #5      device type associated!
+BEGIN
+    // Device Cookie, Dev Prog, In, Out 
+    DEVICE_1W_IANDO+LONG_PAD,           // Add 0L to ensure UINT32
+        0L, 0L, 0L,                     // Ana Prog, In, Out 
+        0L, 0L, 0L,                     // Total count of points 
+        0,                              // Not used
+        // Name 
+        "Digital IO\0",
+        // Description 
+        "IO on the 8132 Card \r\n",
+        "16 bit input and One bit output.\r\n", 
+        "\0",
+        0L, 0L, 0L, 0L                  // Expansion 
+
+        DEV_FUNC_TYPE,      // p.#3     // RT_USER FuncType - Resource type for network/device functions, 0 if none 
+        DEVICE_FUNC,                    // RR_USER FuncRef - Ref to list of network function head, 0 if none 
+  
+        DEV_CFG_TYPE,       // p.#4     // RT_USER CfgType - Resource type for device config, 0 if none 
+        IDD_DEVICE_IO,                     // RR_USER CfgRef - Ref to structure def of device config data, 0 if none 
+
+        DEV_PNT_TYPE,       // p.#7     // RT_USER PntType - Resource type for point info, 0 if none 
+        DEVICE_1W_IANDO,                // RR_USER PntRef - Ref to structure def of point data 
+    DRIVER_SENTENIAL        
+END         
+
+DEVICE_1W_IANDO DEV_PNT_TYPE LOADONCALL DISCARDABLE        // paragraph #7
+BEGIN
+    //  Bits (short), Value (UINT32), Text 
+
+    1+2+16 + 1+2+16,
+
+
+    16, SA_INPUT,   0,  "0 - Input 16b. word\0"
+    
+    8,  SA_INPUT,   0,  " 0 - Input byte\0"
+    8,  SA_INPUT,   8,  " 1 - Input byte\0"
+
+    1, SA_INPUT,   0,  "  0 - Input Bit\0"
+    1, SA_INPUT,   1,  "  1 - Input Bit\0"
+    1, SA_INPUT,   2,  "  2 - Input Bit\0"
+    1, SA_INPUT,   3,  "  3 - Input Bit\0"
+    1, SA_INPUT,   4,  "  4 - Input Bit\0"
+    1, SA_INPUT,   5,  "  5 - Input Bit\0"
+    1, SA_INPUT,   6,  "  6 - Input Bit\0"
+    1, SA_INPUT,   7,  "  7 - Input Bit\0"
+    1, SA_INPUT,   8,  "  8 - Input Bit\0"
+    1, SA_INPUT,   9,  "  9 - Input Bit\0"
+    1, SA_INPUT,  10,  " 10 - Input Bit\0"
+    1, SA_INPUT,  11,  " 11 - Input Bit\0"
+    1, SA_INPUT,  12,  " 12 - Input Bit\0"
+    1, SA_INPUT,  13,  " 13 - Input Bit\0"
+    1, SA_INPUT,  14,  " 14 - Input Bit\0"
+    1, SA_INPUT,  15,  " 15 - Input Bit\0"
+
+    16, SA_OUTPUT,   0,  "0 - Output 16b. word\0"
+    
+    8,  SA_OUTPUT,   0,  " 0 - Output byte\0"
+    8,  SA_OUTPUT,   8,  " 1 - Output byte\0"
+
+    1, SA_OUTPUT,   0,  "  0 - Output Bit\0"
+    1, SA_OUTPUT,   1,  "  1 - Output Bit\0"
+    1, SA_OUTPUT,   2,  "  2 - Output Bit\0"
+    1, SA_OUTPUT,   3,  "  3 - Output Bit\0"
+    1, SA_OUTPUT,   4,  "  4 - Output Bit\0"
+    1, SA_OUTPUT,   5,  "  5 - Output Bit\0"
+    1, SA_OUTPUT,   6,  "  6 - Output Bit\0"
+    1, SA_OUTPUT,   7,  "  7 - Output Bit\0"
+    1, SA_OUTPUT,   8,  "  8 - Output Bit\0"
+    1, SA_OUTPUT,   9,  "  9 - Output Bit\0"
+    1, SA_OUTPUT,  10,  " 10 - Output Bit\0"
+    1, SA_OUTPUT,  11,  " 11 - Output Bit\0"
+    1, SA_OUTPUT,  12,  " 12 - Output Bit\0"
+    1, SA_OUTPUT,  13,  " 13 - Output Bit\0"
+    1, SA_OUTPUT,  14,  " 14 - Output Bit\0"
+    1, SA_OUTPUT,  15,  " 15 - Output Bit\0"
+DRIVER_SENTENIAL        
+END
+
+
+
+
+
+// motion commands
+
+LIST_FUNCTION1 NET_CFGLIST_TYPE LOADONCALL DISCARDABLE       // paragraph #6
+BEGIN
+    12,
+	//START_A_MOVE+LONG_PAD,	"Start AA Move\0",
+	START_A_MOVE+LONG_PAD,	"Start A  Move\0",
+	START_R_MOVE+LONG_PAD,	"Start R  Move\0",
+	START_T_MOVE+LONG_PAD,	"Start T  Move\0"
+	START_TA_MOVE+LONG_PAD,	"Start TA Move\0"
+	START_S_MOVE+LONG_PAD,	"Start S  Move\0"
+	START_RS_MOVE+LONG_PAD,	"Start RS Move\0"
+	START_TAS_MOVE+LONG_PAD,"Start TAS Move\0"
+	V_MOVE+LONG_PAD,		"V Move\0"
+	SV_MOVE+LONG_PAD,		"SV Move\0"
+	HOMEMOVE+LONG_PAD,		"Home Move\0"
+	V_CHANGE+LONG_PAD,		"V Change\0"
+	MANU_MOVE+LONG_PAD,		"Manual Move\0"
+
+
+
+    DRIVER_SENTENIAL        
+END
+
+LIST_FUNCTION2 NET_CFGLIST_TYPE LOADONCALL DISCARDABLE       // paragraph #6
+BEGIN
+    11,
+	STARTMOTION+LONG_PAD,	"Start Motion\0",
+	STOPMOTION+LONG_PAD,	"Stop Motion\0",
+	V_STOP+LONG_PAD,		"V Stop\0",
+	
+	AXISMOTIONDONE+LONG_PAD,"Axis Motion Done\0",
+	WAITAXISDONE+LONG_PAD,	"Wait Axis Done\0",
+	SETMAXVEL+LONG_PAD,		"Set Max Vel\0",
+	GETPOS+LONG_PAD,		"Get Pos\0",
+	SETPOS+LONG_PAD,		"Set Pos\0",
+	GETCOMMAND+LONG_PAD,	"Get Command\0",
+	SETCOMMAND+LONG_PAD,	"Set Command\0",
+	SETMOVERATIO+LONG_PAD,	"Set Axis Move Ratio\0",
+
+    DRIVER_SENTENIAL        
+END
+
+
+
+LIST_FUNCTION3 NET_CFGLIST_TYPE LOADONCALL DISCARDABLE       // paragraph #6
+BEGIN
+    9,
+	SETHOMECONFIG+LONG_PAD,	"Set Home Config\0"
+	SETSVONOFF+LONG_PAD,	"Set SVON On/Off\0",
+
+	SETMAN_IPMODE+LONG_PAD,		"Set Manual IP Mode\0",
+	SET_PLS_OUTMODE+LONG_PAD,	"Set PLS Output Mode\0",
+	SET_PLS_INMODE+LONG_PAD,	"Set PLS Input Mode\0",
+	SET_CNTMODE+LONG_PAD,		"Set CNT Source\0",
+	SETALARM_LOGIC+LONG_PAD,	"Set Alarm Logic\0",
+	SETIN_LOGIC+LONG_PAD,		"Set Input Logic\0",
+	SETINTZERO+LONG_PAD,		"Clear INT\0",
+
+
+    DRIVER_SENTENIAL        
+END
+
+
+LIST_FUNCTION4 NET_CFGLIST_TYPE LOADONCALL DISCARDABLE       // paragraph #6
+BEGIN
+    11,
+	SETCOMPMODE+LONG_PAD,	"Set COMP Mode \0"
+	SETCOMPCNT+LONG_PAD,	"Set COMP Counter \0",
+
+	SETCOMDATA+LONG_PAD,	"Set COMP Data \0",
+	SETCOMPINT+LONG_PAD,	"Set COMP Int \0",
+	SETCOMPHOME+LONG_PAD,	"Set COMP Home \0",
+	SETCOMPTABLE+LONG_PAD,	"Set COMP Table \0",
+
+	GETCOMPCNT+LONG_PAD,	"Get COMP Count \0",
+	GETCOMPDATA+LONG_PAD,	"Get COMP Data \0",
+	GETCOMPSTS+LONG_PAD,	"Get COMP Status \0",
+
+	BUILDCOMPTABLE+LONG_PAD,"Build Table \0",
+	BUILDCOMPFUNCT+LONG_PAD,"Build Function \0",
+
+    DRIVER_SENTENIAL        
+END
+
+
+
+
+
+
+
+
+
+
+/////////////////////////// Device function block ////////////////////////////
+
+    /*
+        In our example all devices support the same set of functions: DEVICE_FUNC
+        This set contains only 1 function: DEVF_GET_DEVSTAT.
+        In some sases we may have to describe different sets of functions
+     */
+
+
+///////////////// device function parameter block /////////////////////
+
+        // ... for functions belonging to DEVICE_FUNC
+
+
+//////////////////////////   The End  ////////////////////////////
+
+
+
+

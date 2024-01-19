@@ -1,0 +1,65 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Runtime - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo".\Release/VERSION.res" /i "..\inc" /i "..\..\inc" /d "NDEBUG" "C:\Program Files\VLC\Development\pci8132\RUNTIME\VERSION.RC"" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPB.tmp" with contents
+[
+/nologo /ML /W3 /GX /Z7 /Od /X /I "..\inc" /I "..\..\inc" /I "..\..\intime\inc" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_WIN32" /FR".\Release/" /Fp".\Release/Runtime.pch" /YX /Fo".\Release/" /Fd".\Release/" /FD /c 
+"C:\Program Files\VLC\Development\pci8132\RUNTIME\auxrut.c"
+"C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c"
+"C:\Program Files\VLC\Development\pci8132\RUNTIME\Pci8132.c"
+"C:\Program Files\VLC\Development\pci8132\RUNTIME\PCISTUFF.C"
+"C:\Program Files\VLC\Development\pci8132\RUNTIME\task.c"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPB.tmp" 
+Creating temporary file "C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPC.tmp" with contents
+[
+RtFlat.lib DcFlat.lib CsFlat.lib cstart32.obj rt.lib ciff3m.lib pcibus.lib pci_8132.obj 8132util.obj /nologo /version:21076.20052 /stack:0x100000,0x2000 /subsystem:console /incremental:no /pdb:".\Release/Pci81322.pdb" /map:".\Release/Pci81322.map" /debug /debugtype:both /machine:I386 /nodefaultlib /out:"\Program Files\VLC\Driver 6_X\Bin\Jobs\Pci81322.rt3" /pdbtype:sept /libpath:"..\..\lib" /libpath:"..\..\intime\lib" /heap:0x4000000,0x4000 
+".\Release\auxrut.obj"
+".\Release\Card.obj"
+".\Release\Pci8132.obj"
+".\Release\PCISTUFF.OBJ"
+".\Release\task.obj"
+".\Release\VERSION.res"
+]
+Creating command line "link.exe @C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\RSPC.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+auxrut.c
+Card.c
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(420) : warning C4101: 'ValuePos32' : unreferenced local variable
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(492) : warning C4101: 'i' : unreferenced local variable
+Pci8132.c
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(193) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(235) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(509) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(512) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(512) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(516) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(519) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(523) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(523) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(528) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(528) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(531) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(538) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(544) : warning C4761: integral size mismatch in argument; conversion supplied
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Card.c(572) : warning C4761: integral size mismatch in argument; conversion supplied
+PCISTUFF.C
+C:\Program Files\VLC\Development\pci8132\RUNTIME\Pci8132.c(284) : warning C4761: integral size mismatch in argument; conversion supplied
+task.c
+Linking...
+
+
+
+<h3>Results</h3>
+Pci81322.rt3 - 0 error(s), 18 warning(s)
+</pre>
+</body>
+</html>

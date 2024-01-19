@@ -1,0 +1,474 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+#include "driver.h"
+#include "dataseg.h" /* To get driver contract */
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_NETWORK DIALOG DISCARDABLE  18, 18, 265, 86
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Pci8132 Driver Configuration"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "Board &Index ",IDC_STATIC,12,11,83,8
+    COMBOBOX        IDC_CO_PCI_INDEX,12,20,83,89,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Board Cou&nt ",IDC_STATIC,12,45,83,8
+    COMBOBOX        IDC_CO_PCI_COUNT,12,54,83,80,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Number of Channels",IDC_STATIC,105,11,80,37,NOT 
+                    WS_VISIBLE | WS_GROUP
+    CONTROL         "&8 Channels",IDC_RB_8_CHANNELS,"Button",
+                    BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_GROUP | 
+                    WS_TABSTOP,111,21,69,10
+    CONTROL         "&16 Channels",IDC_RB_16_CHANNELS,"Button",
+                    BS_AUTORADIOBUTTON | NOT WS_VISIBLE,111,33,69,10
+    CONTROL         "Simulate &mode",IDC_CB_SIMULATE,"Button",
+                    BS_AUTOCHECKBOX | WS_GROUP | WS_TABSTOP,113,57,65,10
+    DEFPUSHBUTTON   "&OK",IDOK,199,10,50,14,WS_GROUP
+    PUSHBUTTON      "&Cancel",IDCANCEL,199,31,50,14
+    PUSHBUTTON      "&Help",IDC_PB_HELP,199,51,50,14
+END
+
+IDD_DEVICE_POS DIALOG DISCARDABLE  18, 18, 142, 98
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Pci8132 Input Channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "&OK",IDOK,84,19,50,14,WS_GROUP
+    PUSHBUTTON      "&Cancel",IDCANCEL,84,36,50,14
+    PUSHBUTTON      "&Help",IDC_PB_HELP,84,53,50,14
+    LTEXT           "&Device Number",IDC_STATIC,7,9,61,8
+    COMBOBOX        IDC_CO_ADDRESS,7,20,61,95,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_GROUP | WS_TABSTOP
+END
+
+IDD_DRVF_MOTION DIALOG DISCARDABLE  18, 18, 277, 161
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Motion Functions"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Axis Number",IDC_STATIC,5,1,77,8
+    LTEXT           "&Start Vel",IDC_STATIC,90,0,77,8
+    EDITTEXT        IDC_E_ST_VEL,90,10,77,13,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "&Result code",IDC_STATIC,5,75,77,8
+    EDITTEXT        IDC_E_RESULT,5,85,77,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "&OK",IDOK,7,128,50,14,WS_GROUP
+    PUSHBUTTON      "&Cancel",IDCANCEL,61,128,50,14
+    PUSHBUTTON      "&Help",IDC_PB_HELP,115,128,50,14
+    EDITTEXT        IDC_E_MAX_VEL,175,10,77,13,ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_E_ACCL,90,35,77,13,ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_E_TACCL,90,60,77,13,ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_E_TDECCL,175,60,77,13,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "&Max Vel",IDC_STATIC,175,0,77,8
+    LTEXT           "A&ccel",IDC_STATIC,90,25,77,8
+    LTEXT           "&TAccl",IDC_STATIC,90,50,77,8
+    LTEXT           "T&Deccl",IDC_STATIC,175,50,77,8
+    EDITTEXT        IDC_E_STATUS,5,110,77,12,ES_AUTOHSCROLL
+    LTEXT           "&Status code",IDC_STATIC,5,100,77,8
+    COMBOBOX        IDC_C_AXIS_NO,5,10,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Final Position",IDC_STATIC,5,49,77,8
+    EDITTEXT        IDC_E_POS,5,60,77,12,ES_AUTOHSCROLL
+    LTEXT           "&Motion Functions",IDC_STATIC,5,26,77,8
+    COMBOBOX        IDC_C_AXIS_FUNCTION,5,35,80,65,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_E_DECCL,175,35,77,13,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "D&eccl",IDC_STATIC,175,25,77,8
+    EDITTEXT        IDC_E_T1ACCL,90,85,77,13,ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_E_T1DECCL,175,85,77,13,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "&T1Accl",IDC_STATIC,90,75,77,8
+    LTEXT           "T1&Deccl",IDC_STATIC,175,75,77,8
+    EDITTEXT        IDC_E_TSACCL,90,110,77,13,ES_AUTOHSCROLL | WS_GROUP
+    EDITTEXT        IDC_E_TSDECCL,175,110,77,13,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "&TSAccl",IDC_STATIC,90,100,77,8
+    LTEXT           "TS&Deccl",IDC_STATIC,175,100,77,8
+END
+
+IDD_DEVICE_INT DIALOG DISCARDABLE  18, 18, 142, 98
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Pci8132 Input Channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "&OK",IDOK,84,19,50,14,WS_GROUP
+    PUSHBUTTON      "&Cancel",IDCANCEL,84,36,50,14
+    PUSHBUTTON      "&Help",IDC_PB_HELP,84,53,50,14
+    LTEXT           "&Device Number",IDC_STATIC,7,9,61,8
+    COMBOBOX        IDC_CO_ADDRESS,7,20,61,95,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_GROUP | WS_TABSTOP
+END
+
+IDD_DEVICE_IO DIALOG DISCARDABLE  18, 18, 142, 98
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Pci8132 IO Channel"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "&OK",IDOK,84,19,50,14,WS_GROUP
+    PUSHBUTTON      "&Cancel",IDCANCEL,84,36,50,14
+    PUSHBUTTON      "&Help",IDC_PB_HELP,84,53,50,14
+    LTEXT           "&Device Number",IDC_STATIC,7,9,61,8
+    COMBOBOX        IDC_CO_ADDRESS,7,20,61,95,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_GROUP | WS_TABSTOP
+END
+
+IDD_DRVF_SETGET DIALOG DISCARDABLE  18, 18, 182, 135
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Motion Functions"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Axis Number",-1,5,1,77,8
+    LTEXT           "&Result code",-1,5,50,77,8
+    EDITTEXT        IDC_E_RESULT,5,60,77,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "&OK",IDOK,115,55,50,14,WS_GROUP
+    PUSHBUTTON      "&Cancel",IDCANCEL,115,75,50,14
+    PUSHBUTTON      "&Help",IDC_PB_HELP,116,94,50,14
+    EDITTEXT        IDC_E_STATUS,5,85,77,12,ES_AUTOHSCROLL
+    LTEXT           "&Status code",-1,5,75,77,8
+    COMBOBOX        IDC_C_AXIS_NO,5,10,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Set Value",-1,89,1,77,8
+    EDITTEXT        IDC_E_SET,90,10,77,12,ES_AUTOHSCROLL
+    LTEXT           "&Set/Get Motion Functions",-1,5,26,84,8
+    COMBOBOX        IDC_C_AXIS_FUNCTION,5,35,80,65,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_E_GET,90,35,77,13,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "&GetValue",-1,90,25,77,8
+END
+
+IDD_DRVF_OTHERS DIALOG DISCARDABLE  18, 18, 254, 135
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Motion Functions (others)"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Axis Number",-1,5,1,77,8
+    LTEXT           "&Result code",-1,5,50,77,8
+    EDITTEXT        IDC_E_RESULT,5,60,77,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "&OK",IDOK,199,10,50,14,WS_GROUP
+    PUSHBUTTON      "&Cancel",IDCANCEL,199,30,50,14
+    PUSHBUTTON      "&Help",IDC_PB_HELP,200,49,50,14
+    EDITTEXT        IDC_E_STATUS,5,85,77,12,ES_AUTOHSCROLL
+    LTEXT           "&Status code",-1,5,75,77,8
+    COMBOBOX        IDC_C_AXIS_NO,5,10,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Set Value 1",-1,90,25,77,8
+    EDITTEXT        IDC_E_SETU16_1,91,34,77,12,ES_AUTOHSCROLL
+    LTEXT           "& Functions",-1,5,26,84,8
+    COMBOBOX        IDC_C_AXIS_FUNCTION,5,35,80,65,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_E_GETU16,90,10,77,13,ES_AUTOHSCROLL
+    LTEXT           "&Get Value",-1,90,0,77,8
+    LTEXT           "&Set Value 2",-1,90,50,77,8
+    EDITTEXT        IDC_E_SETU16_2,91,58,77,12,ES_AUTOHSCROLL
+    LTEXT           "&Set Value 3",-1,90,75,77,8
+    EDITTEXT        IDC_E_SETU16_3,91,84,77,12,ES_AUTOHSCROLL
+    LTEXT           "&Set Value 4",-1,90,100,77,8
+    EDITTEXT        IDC_E_SETU16_4,91,109,77,12,ES_AUTOHSCROLL
+END
+
+IDD_DRVF_SETAXIS DIALOG DISCARDABLE  18, 18, 323, 181
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "Set Axis"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Axis Number",IDC_STATIC,5,1,77,8
+    LTEXT           "&Result code",IDC_STATIC,5,50,77,8
+    EDITTEXT        IDC_E_RESULT,5,60,85,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "&OK",IDOK,273,5,50,14,WS_GROUP
+    PUSHBUTTON      "&Cancel",IDCANCEL,273,20,50,14
+    PUSHBUTTON      "&Help",IDC_PB_HELP,273,40,50,14
+    EDITTEXT        IDC_E_STATUS,5,85,85,12,ES_AUTOHSCROLL
+    LTEXT           "&Status code",IDC_STATIC,5,75,77,8
+    COMBOBOX        IDC_C_AXIS_NO,5,10,85,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_E_RATIO,100,95,42,12,ES_AUTOHSCROLL
+    GROUPBOX        "Scaling",IDC_STATIC,95,75,80,40
+    CONTROL         "Enable",IDC_SCALE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    100,85,38,11
+    CONTROL         "Set for All Axis",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,5,30,85,10
+    COMBOBOX        IDC_C_PULSE_OUTMODE,95,10,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Pulse Output Mode",IDC_STATIC,95,0,77,8
+    COMBOBOX        IDC_C_PULSE_INMODE,95,35,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Pulse Input Mode",IDC_STATIC,95,25,77,8
+    GROUPBOX        "Home Signal",IDC_STATIC,180,0,90,140
+    COMBOBOX        IDC_C_HOME_ORG,185,20,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&ORG",IDC_STATIC,185,10,30,8
+    COMBOBOX        IDC_C_HOME_LAT,185,35,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Index Signal",IDC_STATIC,185,75,65,8
+    COMBOBOX        IDC_C_INDEX_SIG,185,85,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_C_HOME_MODE,185,60,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Slow DownPoint Signal",IDC_STATIC,185,100,80,8
+    COMBOBOX        IDC_C_SDP_DIS,185,110,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_C_SDP_ACT,185,125,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_C_MAN_PULSE_INMODE,95,60,80,60,CBS_DROPDOWN | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Manual Pulse Input Mode",IDC_STATIC,95,50,77,8
+    GROUPBOX        "INT Factor",IDC_STATIC,5,100,85,75
+    CONTROL         "Limit Switch (EL)",IDC_LIMIT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,10,110,65,10
+    CONTROL         "Alarm Signal (ALM)",IDC_ALARM,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,10,150,75,15
+    CONTROL         "Home Mode Finish",IDC_HOME,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,10,120,75,15
+    CONTROL         "One Move Finish",IDC_ONEMOVE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,10,130,75,15
+    CONTROL         "Ready Signal Input",IDC_READY,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,10,140,75,15
+    LTEXT           "&Home Mode",IDC_STATIC,185,50,50,8
+    COMBOBOX        IDC_C_ALM_SIG,95,130,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Alarm signal",IDC_STATIC,95,120,77,8
+    COMBOBOX        IDC_C_ALM_SIG2,95,145,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_C_INP_SIG,185,150,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&INP signal",IDC_STATIC,185,140,77,8
+    COMBOBOX        IDC_C_INP_SIG1,185,165,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_DRVF_ONFLY DIALOG DISCARDABLE  18, 18, 254, 135
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "On the Fly Setting"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Axis Number",-1,5,1,77,8
+    LTEXT           "&Result code",-1,5,50,77,8
+    EDITTEXT        IDC_E_RESULT,5,60,77,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "&OK",IDOK,199,10,50,14,WS_GROUP
+    PUSHBUTTON      "&Cancel",IDCANCEL,199,30,50,14
+    PUSHBUTTON      "&Help",IDC_PB_HELP,200,49,50,14
+    EDITTEXT        IDC_E_STATUS,5,85,77,12,ES_AUTOHSCROLL
+    LTEXT           "&Status code",-1,5,75,77,8
+    COMBOBOX        IDC_C_AXIS_NO,5,10,80,60,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    LTEXT           "&Set Value 1",-1,90,25,77,8
+    EDITTEXT        IDC_E_SETU16_1,91,34,77,12,ES_AUTOHSCROLL
+    LTEXT           "& Functions",-1,5,26,84,8
+    COMBOBOX        IDC_C_AXIS_FUNCTION,5,35,80,65,CBS_DROPDOWN | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_E_GETU16,90,10,77,13,ES_AUTOHSCROLL
+    LTEXT           "&Get Value",-1,90,0,77,8
+    LTEXT           "&Set Value 2",-1,90,50,77,8
+    EDITTEXT        IDC_E_SETU16_2,91,58,77,12,ES_AUTOHSCROLL
+    LTEXT           "&Set Value 3",-1,90,75,77,8
+    EDITTEXT        IDC_E_SETU16_3,91,84,77,12,ES_AUTOHSCROLL
+    LTEXT           "&Array Pointer Table",-1,90,100,77,8
+    EDITTEXT        IDC_E_SETI32_4,91,109,77,12,ES_AUTOHSCROLL
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""winres.h""\r\n"
+    "#include ""driver.h""\r\n"
+    "#include ""dataseg.h"" /* To get driver contract */\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""drvrid.h""\r\n"
+    "#include ""version.h""\r\n"
+    "#include ""pci8132.hh""\r\n"
+    "/* Now the 'code' files */\r\n"
+    "#include ""verbldll.rc2""\r\n"
+    "#include ""pci8132.rcd""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_CP_SOFTWARE_FAULT   "IDS_ERR_SOFTWARE_FAULT %1 %2  %3 %4."
+    IDS_CP_TOO_MANY_DRIVERS "You exceeded the limit of  %4 instances for the PCI8132  driver. "
+    IDS_CP_DRIVER_NOT_CONFIGURED "Driver '%1' is not configured."
+    IDS_CP_DEVICE_NOT_CONFIGURED "Device '%1' is not configured."
+    IDS_CP_UNKNOWN_DEVICE   "Unknown device '%1'. "
+    IDS_CP_NO_DEVICES       "There are no devices defined."
+    IDS_CP_NETPASS1_ERROR   "Error in NetPass1"
+    IDS_CP_UNKNOWN_ACCESS   "Device '%1' has unknown Access of type %3 on Point '%4'."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_CP_NO_INPUTS        "Point '%1' on device '%2' has no expected inputs."
+    IDS_CP_NO_OUTPUTS       "Point '%1' on device '%2' has no expected outputs."
+    IDS_CP_NO_MEMORY        "No memory"
+    IDS_CP_NETCONFIG_ID     "Driver '%1': Invalid configuration (wrong NETCONFIG  Id)."
+    IDS_CP_NETCONFIG_VERS   "Driver '%1': Invalid configuration (wrong  NETCONFIG version)."
+    IDS_CP_NETCONFIG_DPADR  "Driver '%1': Invalid configuration (wrong  DP address)."
+    IDS_CP_NETCONFIG_PORT   "Driver '%1': Invalid configuration (wrong Port address)."
+    IDS_CP_NETCONFIG_WATCHDOG 
+                            "Driver '%1': Invalid configuration (wrong Watchdog code)."
+    IDS_CP_NETCONFIG_HWTEST "Driver '%1': Invalid configuration (wrong  hw  test code)."
+    IDS_CP_NETCONFIG_STOPSTATE 
+                            "Driver '%1': Invalid configuration (wrong  StopState code)."
+    IDS_CP_NETCONFIG_SIMULATE 
+                            "Driver '%1': Invalid configuration (wrong  Simulate code)."
+    IDS_CP_NETCONFIG_BAUDRATE 
+                            "Driver '%1': Invalid configuration (wrong baud rate code)."
+    IDS_CP_NETCONFIG_IRQ    "Driver '%1': Invalid configuration (wrong interrupt level)."
+    IDS_CP_NETCONFIGSIZE    "Driver '%1': incorrect size ( %3)  for NETCONFIG struct.  Should be %4."
+    IDS_CP_SAME_DPRADR      "Drivers '%1' and '%2' have the same dual port address %3."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_CP_SAME_PORT        "Drivers '%1' and '%2' have the same port address %3."
+    IDS_CP_SAME_IRQ         "Drivers '%1' and '%2' use the same interrupt level %3."
+    IDS_CP_DEVCONFIG_NETID  "Driver '%1', device '%2' : Invalid configuration (wrong associated  NETCONFIG Id)."
+    IDS_CP_DEVCONFIG_ID     "Driver '%1', device '%2' : Invalid configuration (wrong DEVCONFIG Id)."
+    IDS_CP_DEVCONFIG_VERS   "Driver '%1', device '%2' : Invalid configuration (wrong DEVCONFIG version)."
+    IDS_CP_DEVCONFIG_ADDRESS 
+                            "Driver '%1', device '%2' : Invalid configuration (wrong link address)."
+    IDS_CP_DEVCONFIG_CRITICAL 
+                            "Driver '%1', device '%2 ': Invalid configuration (wrong critical code)."
+    IDS_CP_DEVCONFIG_ERR    " '%2': Invalid config block on  '%1'."
+    IDS_CP_DEVCONFIG_INVALID_PCODE "Invalid  Product Code  '%2' on  '%1'."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_CP_OVERLAPP         "Driver '%1',  devices '%2' and '%3' are  overlapped."
+    IDS_CP_SAME_DEVICE_ADDRESS 
+                            "Devices '%1' and '%2' have the same address (%4). Driver  '%3'."
+    IDS_CP_DEVCONFIGFIELD   "'%2': DEVCONFIG field  '%3'  wrong value:  %4."
+    IDS_CP_DEVCONFIGSIZE    "Device '%1': incorrect size ( %3)  for DEVCONFIG struct.  Should be %4."
+    IDS_CP_CANNOT_GET_DEVCONFIG "Cannot get configuration for device '%1''."
+    IDS_CP_CANNOT_GET_NETCONFIG "Cannot get configuration for driver '%1'."
+    IDS_CP_INVALID_PORT     "Invalid port address (%3) on %1"
+    IDS_CP_INVALID_DPR      "Invalid memory address (%3) on %1"
+    IDS_CP_INVALID_STOPSTATE "Invalid stop state code on %1"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_CP_INVALID_BAUDRATE "Invalid baud rate on %1"
+    IDS_CP_INVALID_POINT    "Invalid point on %1"
+    IDS_CP_POINT_OUTSIDE    "Point '%1' is outside the I/O image of device  '%2'."
+    IDS_CP_INVALID_IRQLEVEL "Invalid interrupt level (%3) on %1"
+    IDS_CP_POINT_OVERLAP    "Points '%1' and '%2' overlap in the  I/O space of device '%3'."
+    IDS_CP_CANNOT_FIND_NETWORK "Cannot find network '%1'."
+    IDS_CP_SAME_PCI_INDEX   "Drivers '%1' and '%2' have the same PCI index ""%3""."
+    IDS_CP_INCONSISTENT_PCI_COUNT 
+                            "Driver '%1' expects '%3' PCI cards in the system,  while driver  '%2' expects '%4'.  The number of expected PCI cards in the system must be consistent. "
+    IDS_INVALID_PCI_INDEX   "Driver ""%1"" defines an invalid Board Index (""%4""). Valid Board Indexs are in the 1-8 range."
+    IDS_INVALID_PCI_COUNT   "Driver ""%1"" defines an invalid Board Count (""%4"").  Only up to 8 boards of the specified type can be installed in the system."
+    IDS_PCI_INDEX_TOO_BIG   "Driver ""%1"" defines a PCI card with an index (""%3"") larger than the total number of expected cards (""%4""). Please see the driver help file for additional information."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_PCI8132_HW_TEST     "Hardware test failure on '%1'"
+    IDS_PCI8132_INVALID_ADDERSS "Device '%3' has an invalid address."
+    IDS_PCI8132_DEVICE_OFFLINE "Device '%3' is offline."
+    IDS_PCI8132_TIMEOUT     "Pci8132 timeout."
+    IDS_PCI8132_READ_SIZE   "Read  buffer too short."
+    IDS_PCI8132_WRITE_SIZE  "Write buffer too short."
+    IDS_PCI8132_RW_ZERO     "Zero bytes to be transferred."
+    IDS_PCI8132_DPR_OUT     "Out of DPR image."
+    IDS_ERR_PCI_CANNOT_FIND_PCIDEVICE 
+                            "Cannot find get PCI config data for Board Index '%3'.  '%4' boards found on the system."
+    IDS_ERR_PCI_BOARD_NO_MISMATCH 
+                            "Board count mismatch. Expected '%3',  found '%4'."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_VLCRTERR_CREATE_SEMAPHORE "Cannot create semaphore."
+    IDS_VLCRTERR_DELETE_SEMAPHORE "Cannot delete semaphore."
+    IDS_VLCRTERR_CREATE_DESCRIPTOR "Cannot create descriptor for '%1'."
+    IDS_VLCRTERR_DELETE_DESCRIPTOR "Cannot delete descriptor on '%1'."
+    IDS_VLCRTERR_CREATE_SEGMENT "Cannot create segment."
+    IDS_VLCRTERR_DELETE_SEGMENT "Cannot delete segment."
+    IDS_VLCRTERR_CREATE_TASK "Cannot create task."
+    IDS_VLCRTERR_DELETE_TASK "Cannot delete task."
+    IDS_VLCRTERR_CATALOG_OBJECT "Cannot catalog object."
+    IDS_VLCRTERR_UNCATALOG_OBJECT "Cannot uncatalog object."
+    IDS_VLCRTERR_INVALID_INTERRUPT "Invalid interrupt level."
+    IDS_VLCRTERR_SET_INTERRUPT "Cannot set interrupt."
+    IDS_VLCRTERR_RESET_INTERRUPT "Cannot reset interrupt."
+    IDS_VLCRTERR_ENABLE_INTERRUPT "Cannot enable interrupt."
+    IDS_VLCRTERR_DISABLE_INTERRUPT "Cannot disable interrupt."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_VLCRTERR_TASK_TIMEOUT 
+                            "Background task initialization sequence timeout."
+    IDS_VLCRTERR_IRMX_ERROR "Fatal error in Irmx."
+    IDS_VLCRTERR_ALIGNMENT  "No 1 byte alignment on '%2'. Software error."
+    IDS_VLCRTERR_OFFLINE_TIMEOUT 
+                            "Time-out while waiting for asynchronous functions to complete."
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "drvrid.h"
+#include "version.h"
+#include "pci8132.hh"
+/* Now the 'code' files */
+#include "verbldll.rc2"
+#include "pci8132.rcd"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
